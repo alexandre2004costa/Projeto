@@ -40,8 +40,8 @@ namespace prog
   void Image::to_gray_scale(){
     for(int i=0;i<int(w_);i++){
       for(int j=0;j<int(h_);j++){
-        rgb_value v =int((array[i][j].red()+array[i][j].green()+array[i][j].blue())/3); // calcular a média dos componentes da cor para converter em escala de cinza
-        array[i][j]=Color(v,v,v); // definir o pixel para a cor em escala de cinza
+        rgb_value v =int((array[i][j].red()+array[i][j].green()+array[i][j].blue())/3); // calcular a média dos componentes da cor para os converter numa escala de cinzento
+        array[i][j]=Color(v,v,v); // definir o pixel para a cor da escala de cinzento
       }
     }
   }
