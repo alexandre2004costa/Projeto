@@ -62,7 +62,7 @@ namespace prog
       }
     }
   void Image::h_mirror(){
-    int k=1; //Será 0 ou 1?
+    int k=1; //variável de controlo 
     for(int i=w_/2;i<=w_;i++){
       for(int j=0;j<=h_;j++){
           array[i][j]=array[i-k][j]; // espelhar horizontalmente a metade direita da imagem para a metade esquerda
