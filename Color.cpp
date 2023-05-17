@@ -1,7 +1,7 @@
 #include "Color.hpp"
 
 namespace prog {
-    Color::Color() {
+    Color::Color() { //default color
         red_=0;
         green_=0;
         blue_=0;
