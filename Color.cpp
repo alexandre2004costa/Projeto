@@ -11,7 +11,7 @@ namespace prog {
         green_=other.green();
         blue_=other.blue();
     }
-    Color::Color(rgb_value red, rgb_value green, rgb_value blue) { // construtor com parâmetros
+    Color::Color(rgb_value red, rgb_value green, rgb_value blue) { // constructor com parâmetros
         red_=red;
         green_=green;
         blue_=blue;
