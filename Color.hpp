@@ -7,19 +7,19 @@ namespace prog
   class Color
   {
     private:
-      rgb_value red_;
-      rgb_value green_;
-      rgb_value blue_;
+      rgb_value red_; // componente da cor vermelha
+      rgb_value green_;  // componente da cor verde
+      rgb_value blue_;  // componente da cor azul 
     public:
       Color();
-      Color(const Color& c);
-      Color(rgb_value r, rgb_value g, rgb_value b);
-      rgb_value red() const;
-      rgb_value& red();
-      rgb_value green() const;
-      rgb_value& green();
-      rgb_value blue() const;
-      rgb_value& blue();
+      Color(const Color& c); // constructor de cópia
+      Color(rgb_value r, rgb_value g, rgb_value b); // construtor com parametros
+      rgb_value red() const; //getter para a componente da cor vermelha
+      rgb_value& red(); //getter e setter para a componente da cor vermelha
+      rgb_value green() const; //getter para a componente da cor verde
+      rgb_value& green(); //getter e setter para a componente da cor verde
+      rgb_value blue() const; //getter para a componente da cor azul
+      rgb_value& blue(); //getter e setter para a componente da cor azul
   };
 }
 #endif
