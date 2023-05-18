@@ -3,7 +3,7 @@
 #include <string>
 #include <sstream>
 namespace prog {
-    //Esta função converte uma char no seu valor em int, incluindo as letras de A a F (que são valores hexadecimais)
+    //Esta função converte uma char em hexadecimal para binário
     int calculo(char s){
         if(isdigit(s)){
             return s-'0';
