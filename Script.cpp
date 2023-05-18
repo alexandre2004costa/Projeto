@@ -58,16 +58,15 @@ namespace prog {
                 continue;
             }
             if(command == "replace"){
-                rgb_value red1;rgb_value green1;rgb_value blue1;rgb_value red2;rgb_value green2;rgb_value blue2;
-                input >> red1>> green1>> blue1>> red2>> green2>> blue2;
-                replace(red1,green1,blue1,red2,green2,blue2);
-                
+                Color fst;Color sec;
+                input >> fst>>sec;
+                replace(fst,sec);
                 continue;
             }
             if(command == "fill"){
-                int x;int y;int w;int h;rgb_value r;rgb_value g;rgb_value b;
-                input >> x>> y>> w>>h>> r>> g>> b;
-                fill( x, y, w, h, r, g, b);
+                int x;int y;int w;int h;Color k;
+                input >> x>> y>> w>>h>>k;
+                fill( x, y, w, h,k);
                 continue;
             }
             if(command == "rotate_right"){
@@ -92,10 +91,8 @@ namespace prog {
                 crop(x,y,w,h);
                 continue;
             }
-            if(command == "add_filename"){
-                int x;int y;rgb_value r; rgb_value g; rgb_value b;string filename;
-                input >>filename>> r>> g>> b>> x>> y;
-                //void add(filename, r,  g,  b, x, y);
+            if(command == "add"){
+                add();
                 continue;
             }
             if(command == "median_filter"){
@@ -104,8 +101,19 @@ namespace prog {
                 median_filter(ws);
                 continue;
             }
-
-   
+            if(command == "xpm2_open"){
+                clear_image_if_any();
+                string filename;
+                input >> filename;
+                image=loadFromXPM2(filename);
+                continue;
+            }
+            if(command == "xpm2_save"){
+                string filename;
+                input >> filename;
+                saveToXPM2(filename,image);
+                continue;
+            }   
             } 
             // TODO ...
 
@@ -146,19 +154,19 @@ for(int i=0;i<image->width();i++){
       }
     }
   }
-    void Script::replace(rgb_value red1,rgb_value green1,rgb_value blue1,rgb_value red2,rgb_value green2,rgb_value blue2){  
+    void Script::replace(Color fst ,Color sec){  
         for(int i=0;i<image->width();i++){
             for(int j=0;j<image->height();j++){
-                if(image->at(i, j).red()==red1 && image->at(i, j).green()==green1 && image->at(i, j).blue()==blue1){
-                    image->at(i, j)=Color(red2, green2 , blue2);
+                if(image->at(i, j).red()==fst.red() && image->at(i, j).green()==fst.green() && image->at(i, j).blue()==fst.blue()){
+                    image->at(i, j)=sec;
                 }
             }
         }
     }
-        void Script::fill(int x, int y, int w, int h, rgb_value r, rgb_value g, rgb_value b) {
+        void Script::fill(int x, int y, int w, int h,Color k) {
             for (int i = x; i < x + w; i++) {
                 for (int j = y; j < y + h; j++) {
-                    image->at(i, j) = Color(r, g, b);
+                    image->at(i, j) =k;
                 }
             }
         }
@@ -215,7 +223,19 @@ for(int i=0;i<image->width();i++){
         delete image;
         image = new_img;
     }
-    //void Script::add(string filename ,rgb_value r, rgb_value g, rgb_value b,int x,int y)
+    void Script::add(){
+        int x;int y;Color a;string filename;
+        input >>filename>> a>> x>> y;
+        Image* other_img=loadFromPNG(filename);
+        for (int i = 0; i < other_img->width(); i++) {
+            for (int j = 0; j < other_img->height(); j++) {
+                if(!(other_img->at(i,j).red()==a.red() && other_img->at(i,j).green()==a.green() && other_img->at(i,j).blue()==a.blue())){
+                    image->at(i+x,j+y)= other_img->at(i,j);
+                }
+            }
+        }
+        delete other_img;
+    }
     
     rgb_value median(std::vector<rgb_value> a){
         std::sort(a.begin(), a.end());
@@ -244,10 +264,6 @@ for(int i=0;i<image->width();i++){
                             green_values.push_back(image->at(i+k,j+l).green());
                             blue_values.push_back(image->at(i+k,j+l).blue());
                         }}}
-            //Sort nos vetores para poder fazer a mediana
-                std::sort(red_values.begin(), red_values.end());
-                std::sort(green_values.begin(), green_values.end());
-                std::sort(blue_values.begin(), blue_values.end());
             //Temos agora que fazer a mediana dos vetores e adicionar a cor na nossa nova imagem
                 new_img->at(i,j)=Color(median(red_values),median(green_values),median(blue_values));
             }}
