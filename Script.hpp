@@ -10,24 +10,24 @@ namespace prog
   class Script
   {
   public: 
-    Script(const std::string &filename);
-    ~Script();
-    void run();
-    void invert();
-    void to_gray_scale();
-    void replace(Color fst ,Color sec);
-    void fill(int x,int y,int w,int h,Color k);
+    Script(const std::string &filename);  // constructor do script
+    ~Script();  // distructor do script
+    void run(); // executar o script
+    void invert(); // inverter as cores da imagem atual
+    void to_gray_scale(); // converter a imagem atual para uma escala cinza
+    void replace(Color fst ,Color sec); // substituir uma cor pela outra na imagem atual
+    void fill(int x,int y,int w,int h,Color k); // preencher uma região retangular com uma cor na imagem atual
     void rotate_right();
     void rotate_left();
-    void v_mirror();
-    void h_mirror();
-    void add();
-    void crop(int x,int y,int w,int h);
-    void median_filter(int ws);
+    void v_mirror(); // espelhar verticalmente a imagem atual
+    void h_mirror(); // espelhar horizontalmente a imagem atual
+    void add(); // adicionar uma nova imagem
+    void crop(int x,int y,int w,int h); // recortar uma região retangular da imagem atual
+    void median_filter(int ws);  // aplicar filtro da mediana na imagem atual com tamanho de janela especificado
   private:
-    // Current image.
+     // Imagem atual
     Image *image;
-    // Input stream for reading script commands.
+     // Fluxo de entrada para ler comandos do script.
     std::ifstream input;
     
   private:
