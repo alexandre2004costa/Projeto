@@ -8,7 +8,7 @@
 using namespace std;
 
 namespace prog {
-    // Use to read color values from a script file.
+    // Ler os valores de cor de um arquivo de script
     istream& operator>>(istream& input, Color& c) {
         int r, g, b;
         input >> r >> g >> b;
@@ -44,7 +44,7 @@ namespace prog {
                 blank();
                 continue;
             }
-            // Other commands require an image to be previously loaded.
+            // Outros comandos requerem uma imagem previamente carregada
             if (command == "save") {
                 save();
                 continue;
@@ -114,19 +114,18 @@ namespace prog {
                 saveToXPM2(filename,image);
                 continue;
             }   
-            } 
-            // TODO ...
+         } 
 
         }
     void Script::open() {
-        // Replace current image (if any) with image read from PNG file.
+         // Substituir a imagem atual (se houver) pela imagem lida de um arquivo PNG
         clear_image_if_any();
         string filename;
         input >> filename;
         image = loadFromPNG(filename);
     }
     void Script::blank() {
-        // Replace current image (if any) with blank image.
+        // Substituir a imagem atual (se houver) por uma imagem em branco
         clear_image_if_any();
         int w, h;
         Color fill;
@@ -134,7 +133,7 @@ namespace prog {
         image = new Image(w, h, fill);
     }
     void Script::save() {
-        // Save current image to PNG file.
+         // Salvar a imagem atual em um arquivo PNG
         string filename;
         input >> filename;
         saveToPNG(filename, image);
@@ -246,7 +245,7 @@ for(int i=0;i<image->width();i++){
     }
 
     void Script::median_filter(int ws){ 
-        // Largura da borda,ou seja,tamanho que temos que andar para chegar a uma ponta a partir do centro
+        // Largura da borda,ou seja,a distância que temos que percorrer para chegar a uma ponta, a partir do centro
         ws=ws/2;
         //Criar a nossa nova imagem onde vamos guardar os valores
         Image* new_img = new Image(image->width(), image->height());
